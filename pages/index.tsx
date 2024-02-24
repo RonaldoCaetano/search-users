@@ -1,4 +1,3 @@
-import Head from "next/head";
 import { FormEvent, useState } from "react";
 
 interface UserEnrollmentStatus {
@@ -20,7 +19,7 @@ export default function Home() {
 
     if (userId) {
       const request = await fetch(
-        `/api/get-user-enrollment-status?userId=${formProps?.["user-id"]}`,
+        `/api/get-user-enrollment-status?userId=${formProps?.["user-id"]}`
       );
       const response = await request.json();
 
@@ -29,29 +28,42 @@ export default function Home() {
   }
 
   return (
-    <div className="container">
-      <Head>
-        <title>Search Users</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
+    <div className="w-full h-[100vh] flex items-center justify-center">
       <main>
-        <form onSubmit={handleSubmit}>
-          <input type="text" name="user-id" id="user-id" required />
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col items-center justify-center w-full max-w-5xl"
+        >
+          <input
+            type="text"
+            name="user-id"
+            id="user-id"
+            required
+            className="border rounded-md border-zinc-950 w-full h-8 max-w-80 px-2"
+          />
 
-          <button type="submit">Submit</button>
+          <button
+            type="submit"
+            className="border rounded-md border-zinc-950 w-28 py-2 mt-4"
+          >
+            Submit
+          </button>
         </form>
 
         {userEnrollmentStatus && (
-          <div className="">
-            <span>{userEnrollmentStatus?.userId}</span>
-            {userEnrollmentStatus?.papayaSubscription && (
-              <h1>Has subscription</h1>
-            )}
+          <div className="mt-8 flex flex-col gap-2 border p-4 rounded-md border-zinc-950">
+            <span>User ID: {userEnrollmentStatus?.userId}</span>
+            <h1>
+              Papaya Subscription:{" "}
+              {userEnrollmentStatus?.papayaSubscription ? "Active" : "Unactive"}
+            </h1>
 
-            {userEnrollmentStatus?.serviceSubscription && (
-              <h1>Has service subscription</h1>
-            )}
+            <h1>
+              Service Subscription:{" "}
+              {userEnrollmentStatus?.serviceSubscription
+                ? "Active"
+                : "Unactive"}
+            </h1>
           </div>
         )}
       </main>
@@ -102,17 +114,8 @@ export default function Home() {
         body {
           padding: 0;
           margin: 0;
-          font-family:
-            -apple-system,
-            BlinkMacSystemFont,
-            Segoe UI,
-            Roboto,
-            Oxygen,
-            Ubuntu,
-            Cantarell,
-            Fira Sans,
-            Droid Sans,
-            Helvetica Neue,
+          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+            Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
             sans-serif;
         }
 

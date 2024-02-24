@@ -4,7 +4,7 @@ import clientPromise from "../../lib/mongodb";
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<any>,
+  res: NextApiResponse<any>
 ) {
   try {
     const { userId } = req.query;
